@@ -1,0 +1,501 @@
+# Anime-player-
+Anime
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>masturbekTV | Премиум Каталог Аниме</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- Цветовая Палитра "Стриминговый Премиум" --- */
+        :root {
+            --primary-bg: #141414; /* Глубокий черный */
+            --secondary-bg: #1f1f1f; /* Фон для карточек */
+            --accent-color: #00bcd4; /* Яркий Бирюзовый/Голубой */
+            --text-color: #e0e0e0; 
+            --light-text: #a0a0a0; 
+            --font-family: 'Roboto', sans-serif;
+            --border-radius: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Общие элементы --- */
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        h2 strong {
+            color: var(--accent-color);
+        }
+        
+        /* --- Навигация и Шапка (Header) --- */
+        .header {
+            background-color: var(--primary-bg);
+            padding: 18px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--accent-color);
+        }
+
+        .nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 1em;
+            padding: 5px 0;
+            transition: color 0.3s, border-bottom 0.3s;
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav a:hover {
+            color: var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        /* --- Секция Hero (Главная) --- */
+        #hero {
+            min-height: 85vh;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            flex-direction: column;
+            padding-left: 5%;
+            background-size: cover;
+            background-position: center;
+            /* Изображение для фона: Аниме арт */
+            background-image: linear-gradient(to right, rgba(20, 20, 20, 1) 30%, rgba(20, 20, 20, 0.4) 70%, rgba(20, 20, 20, 1)), 
+                              url('https://picsum.photos/1920/1080?random=11');
+            text-align: left;
+        }
+
+        #hero .hero-content {
+            max-width: 600px;
+            padding: 100px 0;
+        }
+
+        #hero h1 {
+            font-size: 3.8em;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        #hero p {
+            font-size: 1.2em;
+            color: var(--light-text);
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 700;
+            border-radius: var(--border-radius);
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 188, 212, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: #00a4b8;
+            transform: translateY(-2px);
+        }
+        
+        /* --- Секция О Проекте --- */
+        #about {
+            background-color: var(--secondary-bg);
+        }
+        
+        .about-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.1em;
+            color: var(--light-text);
+        }
+
+        .about-content p {
+            margin-bottom: 20px;
+        }
+
+        /* --- Каталог Аниме --- */
+        #catalog {
+            padding: 80px 0;
+        }
+        
+        .anime-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .anime-card {
+            background-color: var(--secondary-bg);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            text-align: left;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        .anime-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .anime-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .card-info {
+            padding: 15px;
+        }
+        
+        .card-info h3 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-info p {
+            font-size: 0.9em;
+            color: var(--light-text);
+        }
+        
+        .rating {
+            color: var(--accent-color);
+            font-weight: 700;
+            margin-top: 5px;
+        }
+
+        /* --- Секция Плеера/Инструкции --- */
+        #watch-page {
+            background-color: var(--secondary-bg);
+        }
+
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            position: relative;
+            padding-bottom: 56.25%; /* Соотношение 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: var(--border-radius);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: var(--border-radius);
+        }
+
+        .embed-instruction {
+            padding: 25px;
+            background-color: var(--primary-bg);
+            border-radius: var(--border-radius);
+            max-width: 900px;
+            margin: 30px auto 0;
+            text-align: left;
+            border-left: 4px solid var(--accent-color);
+            color: var(--light-text);
+        }
+
+        .embed-instruction h3 {
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        /* --- Контакты и Футер --- */
+        #contact {
+            background-color: var(--primary-bg);
+        }
+        
+        .social-links {
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: var(--light-text);
+            font-size: 2em;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .footer {
+            background-color: #0d0d0d;
+            padding: 20px;
+            font-size: 0.9em;
+            color: var(--light-text);
+        }
+
+        /* --- Адаптивность --- */
+        @media (max-width: 768px) {
+            .nav { 
+                display: none; 
+                flex-direction: column; 
+                position: absolute; 
+                top: 66px; 
+                left: 0; 
+                width: 100%; 
+                background-color: var(--primary-bg); 
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            }
+            .nav.active { display: flex; }
+            .nav a { margin: 0; padding: 10px 20px; text-align: center; border-bottom: 1px solid var(--secondary-bg); }
+            .menu-toggle { display: block; background: none; border: none; color: var(--text-color); font-size: 1.5em; cursor: pointer; }
+            #hero { padding-left: 20px; }
+            #hero h1 { font-size: 2.5em; }
+            #hero p { font-size: 1em; }
+            .anime-grid { padding: 0 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">masturbekTV</div>
+            <button class="menu-toggle" aria-label="Открыть меню">&#9776;</button>
+            <nav class="nav">
+                <a href="#hero">Главная</a>
+                <a href="#catalog">Каталог</a>
+                <a href="#about">О Проекте</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1>Погружение в **Мир Аниме**</h1>
+            <p>Смотрите сотни тайтлов в высоком качестве. Только самое лучшее.</p>
+            <a href="#catalog" class="cta-button">
+                Начать Смотреть
+            </a>
+        </div>
+    </section>
+    
+    <section id="about" class="section">
+        <div class="container">
+            <h2>О Проекте **masturbekTV**</h2>
+            <div class="about-content">
+                <p>
+                    Мы создали **masturbekTV**, чтобы упростить ваш доступ к аниме. Мы ценим чистоту дизайна и удобство использования. Наша платформа – это быстрый и стильный каталог, созданный фанатами для фанатов.
+                </p>
+                <p>
+                    В отличие от тяжелых стриминговых сайтов, мы фокусируемся на идеальном представлении контента и скорости загрузки, а просмотр осуществляется через самые надежные и функциональные внешние плееры (YouTube, Vimeo и другие), что обеспечивает вам максимальный контроль над качеством и скоростью воспроизведения.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="catalog" class="section">
+        <div class="container">
+            <h2>**Популярное** Сейчас</h2>
+            <div class="anime-grid">
+                
+                <a href="#watch-page" class="anime-card">
+                    <img src="https://images.unsplash.com/photo-1579783902672-9721665a6c6a?fit=crop&w=300&h=420&q=80" alt="Title 1">
+                    <div class="card-info">
+                        <h3>Древний Свет</h3>
+                        <p class="rating">⭐️ 9.4 | Фэнтези</p>
+                        <p>Рейтинг: PG-13</p>
+                    </div>
+                </a>
+
+                <a href="#watch-page" class="anime-card">
+                    <img src="https://images.unsplash.com/photo-1628178822080-60a5e554d38e?fit=crop&w=300&h=420&q=80" alt="Title 2">
+                    <div class="card-info">
+                        <h3>Восстание Машин</h3>
+                        <p class="rating">⭐️ 8.7 | Киберпанк</p>
+                        <p>Рейтинг: R</p>
+                    </div>
+                </a>
+
+                <a href="#watch-page" class="anime-card">
+                    <img src="https://images.unsplash.com/photo-1628178822080-60a5e554d38e?fit=crop&w=300&h=420&q=80" alt="Title 3">
+                    <div class="card-info">
+                        <h3>Самурайский Робот Z-01</h3>
+                        <p class="rating">⭐️ 9.5 | Меха</p>
+                        <p>Рейтинг: PG</p>
+                    </div>
+                </a>
+
+                <a href="#watch-page" class="anime-card">
+                    <img src="https://images.unsplash.com/photo-1618698188204-7a1998f0601f?fit=crop&w=300&h=420&q=80" alt="Title 4">
+                    <div class="card-info">
+                        <h3>Дневник Теней</h3>
+                        <p class="rating">⭐️ 8.1 | Мистика</p>
+                        <p>Рейтинг: R</p>
+                    </div>
+                </a>
+
+                <a href="#watch-page" class="anime-card">
+                    <img src="https://images.unsplash.com/photo-1626017006764-07e384c17244?fit=crop&w=300&h=420&q=80" alt="Title 5">
+                    <div class="card-info">
+                        <h3>Космический Флот</h3>
+                        <p class="rating">⭐️ 9.0 | Фантастика</p>
+                        <p>Рейтинг: PG</p>
+                    </div>
+                </a>
+
+                <a href="#watch-page" class="anime-card">
+                    <img src="https://images.unsplash.com/photo-1542435552-09415494191d?fit=crop&w=300&h=420&q=80" alt="Title 6">
+                    <div class="card-info">
+                        <h3>Магическая Гильдия</h3>
+                        <p class="rating">⭐️ 8.9 | Сёнен</p>
+                        <p>Рейтинг: PG-13</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="watch-page" class="section">
+        <div class="container">
+            <h2>**Смотреть** Серию (Демо)</h2>
+
+            <div class="video-container">
+                <iframe 
+                    src="https://www.youtube.com/embed/videoseries?list=PLkPq0_l4b9gX41q7t9w6fVp3sP7qjS61d" 
+                    title="Рабочий Плеер" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                ></iframe>
+            </div>
+
+            <div class="embed-instruction">
+                <h3>Инструкция: Замена плеера</h3>
+                <p>
+                    Чтобы посмотреть **ваше** аниме, вам нужно скопировать код встраивания (Embed Code) с **YouTube, Vimeo** или другого хостинга, и вставить его внутрь блока <code>&lt;div class="video-container"&gt;</code>, заменив текущий код YouTube.
+                </p>
+                <p style="color: var(--accent-color); font-weight: bold;">
+                    Эта система гарантирует, что вы получите рабочий плеер с настройками скорости и качества на GitHub Pages.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2>**Связаться** с нами</h2>
+            <p>По всем вопросам (сотрудничество, предложения) пишите в WhatsApp или Telegram:</p>
+            
+            <a href="https://wa.me/7755026706" class="cta-button" target="_blank" style="margin-top: 20px;">
+                <i class="fab fa-whatsapp"></i> WhatsApp: +7 755 026 706
+            </a>
+
+            <div class="social-links">
+                <a href="https://www.instagram.com/dunge0nmaster0" target="_blank" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://t.me/venizeois" target="_blank" aria-label="Telegram">
+                    <i class="fab fa-telegram-plane"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 masturbekTV. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuToggle = document.querySelector('.menu-toggle');
+            const nav = document.querySelector('.nav');
+            const navLinks = document.querySelectorAll('.nav a');
+
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    nav.classList.toggle('active');
+                });
+            }
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (nav.classList.contains('active')) {
+                        // Немного задержки, чтобы скролл успел произойти
+                        setTimeout(() => {
+                            nav.classList.remove('active');
+                        }, 100); 
+                    }
+                });
+            });
+
+            // Плавная прокрутка
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
